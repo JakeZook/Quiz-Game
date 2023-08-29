@@ -70,3 +70,18 @@ button{
     color: darkgreen;
     font-size: 2rem;
 }
+
+.score-screen{
+    text-align: center;
+}
+
+.score-screen h2{
+    padding: 1rem;
+
+    color: white;
+    font-size: 2rem;
+}
+
+.score-screen p{
+    color: white;
+}
