@@ -1,7 +1,8 @@
 # <Quiz-Game>
+https://jakezook.github.io/Quiz-Game/
 
 ## Description
-A 5 question quiz game to test JavaScript knowledge. This project was created to enforce knowledge of JS, DOM manipulation, and local storage management. 
+A 5-question quiz game to test JavaScript knowledge. This project was created to enforce knowledge of JS, DOM manipulation, and local storage management. 
 
 ## Table of Contents
 
@@ -17,7 +18,7 @@ N/A
 ## Usage
 Click the start button to begin the quiz. The quiz is made up of 5 questions with 4 possible answers to each. The user has 90 seconds to finish the quiz. Answering a question incorrectly will decrease the time left by 10 seconds. Once the quiz is over, the time left is the final score. The user can then enter their initials to store their score on the leaderboards. The high score button will bring up the leaderboards and display the data is there is any stored in local memory. The clear button will clear the local memory and the back button returns the user to the menu.
 
-
+<img width="1718" alt="Screenshot 2023-08-29 175033" src="https://github.com/JakeZook/Quiz-Game/assets/132726907/fea01fc4-990f-42b6-ad68-8a4106d13cf8">
 
 ## Credits
 
