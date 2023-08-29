@@ -276,4 +276,8 @@ backButton.addEventListener('click', showMenu);
 clearButton.addEventListener('click', function() {
     //Clears local storage
     localStorage.clear();
+
+    //Sets text in initial and high score elements to be blank
+    highScoreInitials.textContent = "--";
+    highScore.textContent = "--";
 })
