@@ -93,9 +93,12 @@ function pickAnswer(userAnswer)
 
     result.style.display = "flex";
 
+    questionsNumber++;
+    askQuestion();
+
     setTimeout(function(){
     result.style.display = "none";
-}, 1000);
+}, 500);
 }
 
 startBtn.addEventListener('click', startQuiz);

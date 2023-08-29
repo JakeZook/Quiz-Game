@@ -50,6 +50,13 @@ button{
     font-size: 2rem;
 }
 
+.quiz ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .quiz button{
     display: block;
     margin: 1rem;
@@ -57,6 +64,8 @@ button{
 
 #result{
     padding: 0 1rem;
+    display: flex;
+    justify-content: center;
 
     color: darkgreen;
     font-size: 2rem;
