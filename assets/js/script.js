@@ -1,3 +1,5 @@
+//TODO - Add timer, Add highscore screen
+
 //Variable declarations
 
 var highScoreBtn = document.querySelector("#high-scores-button");
@@ -25,6 +27,14 @@ var result = document.querySelector("#result");
 
 var scoreScreen = document.querySelector(".score-screen");
 var quizScore = document.querySelector("#quiz-score");
+var initialsInput = document.querySelector("#initials");
+var submitButton = document.querySelector("#submit-button");
+
+var highScoreScreen = document.querySelector(".high-scores");
+var highScoreInitials = document.querySelector("#high-score-initials");
+var highScore = document.querySelector("#high-score");
+var backButton = document.querySelector("#back-button");
+var clearButton = document.querySelector("#clear-button")
 
 var questions = [
 {
@@ -59,13 +69,16 @@ var questions = [
     correctAnswer: 3
 }]
 
-var questionsNumber = 0;
+var timerInterval;
+var secondsLeft = 90;
 
+var questionsNumber = 0;
 var questionsCorrect = 0;
 
 quiz.style.display = "none";
 result.style.display = "none";
 scoreScreen.style.display = "none";
+highScoreScreen.style.display = "none";
 
 //Function declarations
 function startQuiz()
@@ -74,6 +87,7 @@ function startQuiz()
     quiz.style.display = "flex";
 
     askQuestion();
+    startTimer();
 }
 
 function askQuestion()
@@ -86,19 +100,34 @@ function askQuestion()
     }
 }
 
+function startTimer()
+{
+    timerInterval = setInterval(function() {
+    secondsLeft--;
+
+    timer.textContent = "TIME: " + secondsLeft;
+    
+    if(secondsLeft === 0) 
+    {
+        clearInterval(timerInterval);
+        showScore();
+    }
+}, 1000);
+}
+
 function pickAnswer(userAnswer)
 {
     if (userAnswer == questions[questionsNumber].correctAnswer)
     {
         result.textContent = "Correct!";
         result.style.color = "darkgreen";
-
-        questionsCorrect++;
     }
     else
     {
         result.textContent = "Incorrect!";
         result.style.color = "red";
+
+        secondsLeft = secondsLeft - 10
     }
 
     result.style.display = "flex";
@@ -111,6 +140,10 @@ function pickAnswer(userAnswer)
     }
     else{
         questionsNumber = 0;
+        
+        clearInterval(timerInterval);
+        
+        timer.textContent = "TIME: " + secondsLeft;
         showScore();
     }
 
@@ -124,12 +157,54 @@ function showScore()
     quiz.style.display = "none";
     scoreScreen.style.display = "block";
 
-    quizScore.textContent = "Your score is: " + questionsCorrect + "/5";
+    quizScore.textContent = "Your score is: " + secondsLeft;
 }
 
+function showHighScores()
+{
+    clearInterval(timerInterval);
+
+    secondsLeft = 90;
+    timer.textContent = "TIME: " + secondsLeft;
+
+    quiz.style.display = "none";
+    menu.style.display = "none";
+    scoreScreen.style.display = "none";
+    highScoreScreen.style.display = "block";
+
+    var lastScore = JSON.parse(localStorage.getItem("userScore"));
+    if (lastScore !== null)
+    {
+        highScoreInitials.textContent = lastScore.initials;
+        highScore.textContent = lastScore.score;
+    }
+}
+
+function showMenu()
+{
+    highScoreScreen.style.display = "none";
+    menu.style.display = "block";
+}
 
 //Event declaration
 startBtn.addEventListener('click', startQuiz);
+
+submitButton.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    var userScore = {
+        initials: initialsInput.value,
+        score: secondsLeft
+    }
+
+    localStorage.setItem("userScore", JSON.stringify(userScore));
+
+    scoreScreen.style.display = "none";
+    menu.style.display = "block";
+
+    secondsLeft = 90;
+    timer.textContent = "TIME: " + secondsLeft;
+});
 
 answer1.addEventListener('click', function() {
     pickAnswer(1);
@@ -146,3 +221,14 @@ answer3.addEventListener('click', function() {
 answer4.addEventListener('click', function() {
     pickAnswer(4);
 });
+
+highScoreBtn.addEventListener('click', showHighScores);
+
+backButton.addEventListener('click', showMenu);
+
+clearButton.addEventListener('click', function() {
+    localStorage.clear();
+
+    highScoreInitials.textContent = "--";
+    highScore.textContent = "--";
+})
